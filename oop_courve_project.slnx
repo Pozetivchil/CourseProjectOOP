@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="oop_courve_project.vcxproj" Id="ab0a66bf-5050-453d-9fe0-a896fff38470" />
+</Solution>
