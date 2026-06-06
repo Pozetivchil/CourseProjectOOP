@@ -3,32 +3,32 @@
 using namespace std;
 Person::Person() : lastName(""), firstName(""), middleName("") {}
 Person::Person(const string& ln, const string& fn, const string& mn)
-	: lastName(ln), firstName(fn), middleName(mn) {
-	if (ln.empty() || fn.empty()) {
-		throw LibraryException("Ôàìèëèÿ è èìÿ íå ìîãóò áûòü ïóñòûìè");
-	}
+    : lastName(ln), firstName(fn), middleName(mn) {
+    if (ln.empty() || fn.empty()) {
+        throw LibraryException("Ð¤Ð°Ð¼Ð¸Ð»Ð¸Ñ Ð¸ Ð¸Ð¼Ñ Ð½Ðµ Ð¼Ð¾Ð³ÑƒÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¿ÑƒÑÑ‚Ñ‹Ð¼Ð¸");
+    }
 }
 string Person::getFullName() const {
-	string result = lastName + " " + firstName;
-	if (!middleName.empty()) result += " " + middleName;
-	return result;
+    string result = lastName + " " + firstName;
+    if (!middleName.empty()) result += " " + middleName;
+    return result;
 }
 
 Reader::Reader()
-	: Person(), id(0), ticketNumber(""), registrationDate(), activeLoansCount(0) {
+    : Person(), id(0), ticketNumber(""), registrationDate(), activeLoansCount(0) {
 }
 Reader::Reader(int id, const string& ln, const string& fn, const string& mn,
-	const string& ticket, const Date& regDate)
-	: Person(ln, fn, mn), id(id), ticketNumber(ticket),
-	registrationDate(regDate), activeLoansCount(0) {
-	if (ticket.empty()) {
-		throw LibraryException("Íîìåð ÷èòàòåëüñêîãî áèëåòà íå ìîæåò áûòü ïóñòûì");
-	}
+    const string& ticket, const Date& regDate)
+    : Person(ln, fn, mn), id(id), ticketNumber(ticket),
+    registrationDate(regDate), activeLoansCount(0) {
+    if (ticket.empty()) {
+        throw LibraryException("ÐÐ¾Ð¼ÐµÑ€ Ñ‡Ð¸Ñ‚Ð°Ñ‚ÐµÐ»ÑŒÑÐºÐ¾Ð³Ð¾ Ð±Ð¸Ð»ÐµÑ‚Ð° Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¿ÑƒÑÑ‚Ñ‹Ð¼");
+    }
 }
 void Reader::incrementLoans() {
-	if (activeLoansCount >= MAX_ACTIVE_LOANS)
-		throw LibraryException("Ïðåâûøåí ëèìèò îäíîâðåìåííî âûäàííûõ êíèã");
-	++activeLoansCount;
+    if (activeLoansCount >= MAX_ACTIVE_LOANS)
+        throw LibraryException("ÐŸÑ€ÐµÐ²Ñ‹ÑˆÐµÐ½ Ð»Ð¸Ð¼Ð¸Ñ‚ Ð¾Ð´Ð½Ð¾Ð²Ñ€ÐµÐ¼ÐµÐ½Ð½Ð¾ Ð²Ñ‹Ð´Ð°Ð½Ð½Ñ‹Ñ… ÐºÐ½Ð¸Ð³");
+    ++activeLoansCount;
 }
 void Reader::decrementLoans() {
 	if (activeLoansCount > 0) --activeLoansCount;

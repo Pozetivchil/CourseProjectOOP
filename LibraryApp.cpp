@@ -3,244 +3,244 @@
 #include <iostream>
 using namespace std;
 LibraryApp::LibraryApp() : running(true), currentDate(Date::today()) {
-	library.loadAll();
+    library.loadAll();
 }
 string LibraryApp::readLine(const string& prompt) {
-	cout << prompt;
-	string s;
-	getline(cin, s);
-	return s;
+    cout << prompt;
+    string s;
+    getline(cin, s);
+    return s;
 }
 
 bool LibraryApp::isBlank(const string& s) {
-	for (size_t i = 0; i < s.size(); ++i) {
-		if (s[i] != ' ' && s[i] != '\t') return false;
-	}
-	return true;
+    for (size_t i = 0; i < s.size(); ++i) {
+        if (s[i] != ' ' && s[i] != '\t') return false;
+    }
+    return true;
 }
 
 string LibraryApp::readNonEmpty(const string& prompt) {
-	while (true) {
-		string s = readLine(prompt);
-		if (!isBlank(s)) return s;
-		cout << "  Œ¯Ë·Í‡: ÁÌ‡˜ÂÌËÂ ÌÂ ÏÓÊÂÚ ·˚Ú¸ ÔÛÒÚ˚Ï.\n";
-	}
+    while (true) {
+        string s = readLine(prompt);
+        if (!isBlank(s)) return s;
+        cout << "  –û—à–∏–±–∫–∞: –∑–Ω–∞—á–µ–Ω–∏–µ –Ω–µ –º–æ–∂–µ—Ç –±—ã—Ç—å –ø—É—Å—Ç—ã–º.\n";
+    }
 }
 
 int LibraryApp::readInt(const string& prompt) {
-	while (true) {
-		string s = readLine(prompt);
-		bool ok = !s.empty();
-		int sign = 1;
-		size_t i = 0;
-		if (ok && s[0] == '-') {
-			sign = -1; ++i;
-			if (i == s.size()) ok = false;
-		}
-		int value = 0;
-		for (; ok && i < s.size(); ++i) {
-			if (s[i] < '0' || s[i] > '9') { ok = false; break; }
-			value = value * 10 + (s[i] - '0');
-		}
-		if (ok) return value * sign;
-		cout << "  Œ¯Ë·Í‡: ÓÊË‰‡ÎÓÒ¸ ˆÂÎÓÂ ˜ËÒÎÓ.\n";
-	}
+    while (true) {
+        string s = readLine(prompt);
+        bool ok = !s.empty();
+        int sign = 1;
+        size_t i = 0;
+        if (ok && s[0] == '-') {
+            sign = -1; ++i;
+            if (i == s.size()) ok = false;
+        }
+        int value = 0;
+        for (; ok && i < s.size(); ++i) {
+            if (s[i] < '0' || s[i] > '9') { ok = false; break; }
+            value = value * 10 + (s[i] - '0');
+        }
+        if (ok) return value * sign;
+        cout << "  –û—à–∏–±–∫–∞: –æ–∂–∏–¥–∞–ª–æ—Å—å —Ü–µ–ª–æ–µ —á–∏—Å–ª–æ.\n";
+    }
 }
 int LibraryApp::readPositiveInt(const string& prompt) {
-	while (true) {
-		int v = readInt(prompt);
-		if (v > 0) return v;
-		cout << "  Œ¯Ë·Í‡: ÁÌ‡˜ÂÌËÂ ‰ÓÎÊÌÓ ·˚Ú¸ ÔÓÎÓÊËÚÂÎ¸Ì˚Ï.\n";
-	}
+    while (true) {
+        int v = readInt(prompt);
+        if (v > 0) return v;
+        cout << "  –û—à–∏–±–∫–∞: –∑–Ω–∞—á–µ–Ω–∏–µ –¥–æ–ª–∂–Ω–æ –±—ã—Ç—å –ø–æ–ª–æ–∂–∏—Ç–µ–ª—å–Ω—ã–º.\n";
+    }
 }
 void LibraryApp::run() {
-	cout << "“ÂÍÛ˘‡ˇ ‰‡Ú‡: ";
-	currentDate.print(cout);
-	cout << "\n";
-	while (running) {
-		cout << "\n=== √Î‡‚ÌÓÂ ÏÂÌ˛ ===\n"
-			<< "1.  ÌË„Ë Ë ÊÛÌ‡Î˚\n"
-			<< "2. ◊ËÚ‡ÚÂÎË\n"
-			<< "3. ¬˚‰‡˜Ë\n"
-			<< "4. œÓËÒÍ\n"
-			<< "5. ŒÚ˜∏Ú˚\n"
-			<< "6. —Óı‡ÌËÚ¸ ‰‡ÌÌ˚Â\n"
-			<< "0. ¬˚ıÓ‰\n";
-		int cmd = readInt("¬˚·Ó: ");
-		try {
-			switch (cmd) {
-			case 1: menuBooks();   break;
-			case 2: menuReaders(); break;
-			case 3: menuLoans();   break;
-			case 4: menuSearch();  break;
-			case 5: menuReports(); break;
-			case 6: doSave();      break;
-			case 0: doExit();      break;
-			default:
-				cout << "ÕÂËÁ‚ÂÒÚÌ‡ˇ ÍÓÏ‡Ì‰‡.\n";
-			}
-		}
-		catch (const LibraryException& e) {
-			cout << "Œ¯Ë·Í‡: " << e.what() << "\n";
-		}
-	}
+    cout << "–¢–µ–∫—É—â–∞—è –¥–∞—Ç–∞: ";
+    currentDate.print(cout);
+    cout << "\n";
+    while (running) {
+        cout << "\n=== –ì–ª–∞–≤–Ω–æ–µ –º–µ–Ω—é ===\n"
+            << "1. –ö–Ω–∏–≥–∏ –∏ –∂—É—Ä–Ω–∞–ª—ã\n"
+            << "2. –ß–∏—Ç–∞—Ç–µ–ª–∏\n"
+            << "3. –í—ã–¥–∞—á–∏\n"
+            << "4. –ü–æ–∏—Å–∫\n"
+            << "5. –û—Ç—á—ë—Ç—ã\n"
+            << "6. –°–æ—Ö—Ä–∞–Ω–∏—Ç—å –¥–∞–Ω–Ω—ã–µ\n"
+            << "0. –í—ã—Ö–æ–¥\n";
+        int cmd = readInt("–í—ã–±–æ—Ä: ");
+        try {
+            switch (cmd) {
+            case 1: menuBooks();   break;
+            case 2: menuReaders(); break;
+            case 3: menuLoans();   break;
+            case 4: menuSearch();  break;
+            case 5: menuReports(); break;
+            case 6: doSave();      break;
+            case 0: doExit();      break;
+            default:
+                cout << "–ù–µ–∏–∑–≤–µ—Å—Ç–Ω–∞—è –∫–æ–º–∞–Ω–¥–∞.\n";
+            }
+        }
+        catch (const LibraryException& e) {
+            cout << "–û—à–∏–±–∫–∞: " << e.what() << "\n";
+        }
+    }
 }
 void LibraryApp::printAllItems() const {
-	if (library.getItems().empty()) {
-		cout << "‘ÓÌ‰ ÔÛÒÚ.\n";
-		return;
-	}
+    if (library.getItems().empty()) {
+        cout << "–§–æ–Ω–¥ –ø—É—Å—Ç.\n";
+        return;
+    }
 
-	for (auto p : library.getItems()) p->display();
+    for (auto p : library.getItems()) p->display();
 }
 void LibraryApp::printAllReaders() const {
-	if (library.getReaders().empty()) {
-		cout << "—ÔËÒÓÍ ˜ËÚ‡ÚÂÎÂÈ ÔÛÒÚ.\n";
-		return;
-	}
-	for (const auto& r : library.getReaders()) {
-		cout << "#" << r.getId() << "  " << r.getFullName()
-			<< "  ·ËÎÂÚ: " << r.getTicketNumber()
-			<< "  ‡ÍÚË‚Ì˚ı: " << r.getActiveLoansCount() << "\n";
-	}
+    if (library.getReaders().empty()) {
+        cout << "–°–ø–∏—Å–æ–∫ —á–∏—Ç–∞—Ç–µ–ª–µ–π –ø—É—Å—Ç.\n";
+        return;
+    }
+    for (const auto& r : library.getReaders()) {
+        cout << "#" << r.getId() << "  " << r.getFullName()
+            << "  –±–∏–ª–µ—Ç: " << r.getTicketNumber()
+            << "  –∞–∫—Ç–∏–≤–Ω—ã—Ö: " << r.getActiveLoansCount() << "\n";
+    }
 }
 void LibraryApp::printLoan(const Loan& l) const {
-	const LibraryItem* item = library.findItem(l.getItemId());
-	const Reader* r = library.findReader(l.getReaderId());
-	cout << "#" << l.getId() << "  ";
-	if (r != nullptr) cout << r->getFullName(); else cout << "(ÌÂÚ ˜ËÚ‡ÚÂÎˇ)";
-	cout << " ó ";
-	if (item != nullptr) cout << item->getTitle(); else cout << "(ÌÂÚ ËÁ‰‡ÌËˇ)";
-	cout << "  ‰Ó ";
-	l.getDueDate().print(cout);
-	cout << "\n";
+    const LibraryItem* item = library.findItem(l.getItemId());
+    const Reader* r = library.findReader(l.getReaderId());
+    cout << "#" << l.getId() << "  ";
+    if (r != nullptr) cout << r->getFullName(); else cout << "(–Ω–µ—Ç —á–∏—Ç–∞—Ç–µ–ª—è)";
+    cout << " ‚Äî ";
+    if (item != nullptr) cout << item->getTitle(); else cout << "(–Ω–µ—Ç –∏–∑–¥–∞–Ω–∏—è)";
+    cout << "  –¥–æ ";
+    l.getDueDate().print(cout);
+    cout << "\n";
 }
 void LibraryApp::menuBooks() {
-	cout << "\n--  ÌË„Ë Ë ÊÛÌ‡Î˚ --\n"
-		<< "1. —ÔËÒÓÍ\n2. ƒÓ·‡‚ËÚ¸ ÍÌË„Û\n3. ƒÓ·‡‚ËÚ¸ ÊÛÌ‡Î\n"
-		<< "4. ”‰‡ÎËÚ¸ (ÔÓ id)\n0. Õ‡Á‡‰\n";
-	int c = readInt("¬˚·Ó: ");
-	if (c == 1) {
-		printAllItems();
-	}
-	else if (c == 2) {
-		string t = readNonEmpty("Õ‡Á‚‡ÌËÂ: ");
-		string a = readNonEmpty("¿‚ÚÓ: ");
-		int y = readInt("√Ó‰ ËÁ‰‡ÌËˇ: ");
-		int n = readPositiveInt(" ÓÎË˜ÂÒÚ‚Ó ˝ÍÁÂÏÔÎˇÓ‚: ");
-		library.addBook(t, a, y, n);
-		cout << " ÌË„‡ ‰Ó·‡‚ÎÂÌ‡.\n";
-	}
-	else if (c == 3) {
-		string t = readNonEmpty("Õ‡Á‚‡ÌËÂ: ");
-		int y = readInt("√Ó‰: ");
-		int n = readPositiveInt(" ÓÎË˜ÂÒÚ‚Ó ˝ÍÁÂÏÔÎˇÓ‚: ");
-		int i = readPositiveInt("ÕÓÏÂ ‚˚ÔÛÒÍ‡: ");
-		string p = readNonEmpty("œÂËÓ‰Ë˜ÌÓÒÚ¸: ");
-		library.addJournal(t, y, n, i, p);
-		cout << "∆ÛÌ‡Î ‰Ó·‡‚ÎÂÌ.\n";
-	}
-	else if (c == 4) {
-		int id = readPositiveInt("id ‰Îˇ Û‰‡ÎÂÌËˇ: ");
-		if (library.removeItem(id)) cout << "”‰‡ÎÂÌÓ.\n";
-		else                        cout << "ÕÂ Ì‡È‰ÂÌÓ.\n";
-	}
+    cout << "\n-- –ö–Ω–∏–≥–∏ –∏ –∂—É—Ä–Ω–∞–ª—ã --\n"
+        << "1. –°–ø–∏—Å–æ–∫\n2. –î–æ–±–∞–≤–∏—Ç—å –∫–Ω–∏–≥—É\n3. –î–æ–±–∞–≤–∏—Ç—å –∂—É—Ä–Ω–∞–ª\n"
+        << "4. –£–¥–∞–ª–∏—Ç—å (–ø–æ id)\n0. –ù–∞–∑–∞–¥\n";
+    int c = readInt("–í—ã–±–æ—Ä: ");
+    if (c == 1) {
+        printAllItems();
+    }
+    else if (c == 2) {
+        string t = readNonEmpty("–ù–∞–∑–≤–∞–Ω–∏–µ: ");
+        string a = readNonEmpty("–ê–≤—Ç–æ—Ä: ");
+        int y = readInt("–ì–æ–¥ –∏–∑–¥–∞–Ω–∏—è: ");
+        int n = readPositiveInt("–ö–æ–ª–∏—á–µ—Å—Ç–≤–æ —ç–∫–∑–µ–º–ø–ª—è—Ä–æ–≤: ");
+        library.addBook(t, a, y, n);
+        cout << "–ö–Ω–∏–≥–∞ –¥–æ–±–∞–≤–ª–µ–Ω–∞.\n";
+    }
+    else if (c == 3) {
+        string t = readNonEmpty("–ù–∞–∑–≤–∞–Ω–∏–µ: ");
+        int y = readInt("–ì–æ–¥: ");
+        int n = readPositiveInt("–ö–æ–ª–∏—á–µ—Å—Ç–≤–æ —ç–∫–∑–µ–º–ø–ª—è—Ä–æ–≤: ");
+        int i = readPositiveInt("–ù–æ–º–µ—Ä –≤—ã–ø—É—Å–∫–∞: ");
+        string p = readNonEmpty("–ü–µ—Ä–∏–æ–¥–∏—á–Ω–æ—Å—Ç—å: ");
+        library.addJournal(t, y, n, i, p);
+        cout << "–ñ—É—Ä–Ω–∞–ª –¥–æ–±–∞–≤–ª–µ–Ω.\n";
+    }
+    else if (c == 4) {
+        int id = readPositiveInt("id –¥–ª—è —É–¥–∞–ª–µ–Ω–∏—è: ");
+        if (library.removeItem(id)) cout << "–£–¥–∞–ª–µ–Ω–æ.\n";
+        else                        cout << "–ù–µ –Ω–∞–π–¥–µ–Ω–æ.\n";
+    }
 }
 void LibraryApp::menuReaders() {
-	cout << "\n-- ◊ËÚ‡ÚÂÎË --\n"
-		<< "1. —ÔËÒÓÍ\n2. «‡Â„ËÒÚËÓ‚‡Ú¸\n3. ”‰‡ÎËÚ¸ (ÔÓ id)\n0. Õ‡Á‡‰\n";
-	int c = readInt("¬˚·Ó: ");
-	if (c == 1) {
-		printAllReaders();
-	}
-	else if (c == 2) {
-		string ln = readNonEmpty("‘‡ÏËÎËˇ: ");
-		string fn = readNonEmpty("»Ïˇ: ");
-		string mn = readLine("ŒÚ˜ÂÒÚ‚Ó (ÏÓÊÌÓ ÔÓÔÛÒÚËÚ¸): ");
-		if (isBlank(mn)) mn = "";
-		string tk = readNonEmpty("ÕÓÏÂ ·ËÎÂÚ‡: ");
-		library.registerReader(ln, fn, mn, tk);
-		cout << "◊ËÚ‡ÚÂÎ¸ Á‡Â„ËÒÚËÓ‚‡Ì.\n";
-	}
-	else if (c == 3) {
-		int id = readPositiveInt("id: ");
-		if (library.removeReader(id)) cout << "”‰‡Î∏Ì.\n";
-		else                          cout << "ÕÂ Ì‡È‰ÂÌ.\n";
-	}
+    cout << "\n-- –ß–∏—Ç–∞—Ç–µ–ª–∏ --\n"
+        << "1. –°–ø–∏—Å–æ–∫\n2. –ó–∞—Ä–µ–≥–∏—Å—Ç—Ä–∏—Ä–æ–≤–∞—Ç—å\n3. –£–¥–∞–ª–∏—Ç—å (–ø–æ id)\n0. –ù–∞–∑–∞–¥\n";
+    int c = readInt("–í—ã–±–æ—Ä: ");
+    if (c == 1) {
+        printAllReaders();
+    }
+    else if (c == 2) {
+        string ln = readNonEmpty("–§–∞–º–∏–ª–∏—è: ");
+        string fn = readNonEmpty("–ò–º—è: ");
+        string mn = readLine("–û—Ç—á–µ—Å—Ç–≤–æ (–º–æ–∂–Ω–æ –ø—Ä–æ–ø—É—Å—Ç–∏—Ç—å): ");
+        if (isBlank(mn)) mn = "";
+        string tk = readNonEmpty("–ù–æ–º–µ—Ä –±–∏–ª–µ—Ç–∞: ");
+        library.registerReader(ln, fn, mn, tk);
+        cout << "–ß–∏—Ç–∞—Ç–µ–ª—å –∑–∞—Ä–µ–≥–∏—Å—Ç—Ä–∏—Ä–æ–≤–∞–Ω.\n";
+    }
+    else if (c == 3) {
+        int id = readPositiveInt("id: ");
+        if (library.removeReader(id)) cout << "–£–¥–∞–ª—ë–Ω.\n";
+        else                          cout << "–ù–µ –Ω–∞–π–¥–µ–Ω.\n";
+    }
 }
 void LibraryApp::menuLoans() {
-	cout << "\n-- ¬˚‰‡˜Ë --\n"
-		<< "1. ¬˚‰‡Ú¸\n2. œËÌˇÚ¸ ‚ÓÁ‚‡Ú\n"
-		<< "3. ¿ÍÚË‚Ì˚Â\n4. œÓÒÓ˜ÂÌÌ˚Â\n0. Õ‡Á‡‰\n";
-	int c = readInt("¬˚·Ó: ");
-	if (c == 1) {
-		int id = readPositiveInt("id ËÁ‰‡ÌËˇ: ");
-		string tk = readNonEmpty("¡ËÎÂÚ ˜ËÚ‡ÚÂÎˇ: ");
-		int loanId = library.issueLoan(id, tk, currentDate);
-		cout << "¬˚‰‡˜‡ ÓÙÓÏÎÂÌ‡. ÕÓÏÂ Á‡ÔËÒË: " << loanId << "\n";
-	}
-	else if (c == 2) {
-		int id = readPositiveInt("id Á‡ÔËÒË Ó ‚˚‰‡˜Â: ");
-		if (library.returnLoan(id, currentDate)) cout << "¬ÓÁ‚‡Ú ÔËÌˇÚ.\n";
-		else                                     cout << "«‡ÔËÒ¸ ÌÂ Ì‡È‰ÂÌ‡ ËÎË ÛÊÂ Á‡Í˚Ú‡.\n";
-	}
-	else if (c == 3) {
-		auto active = library.activeLoans();
-		if (active.empty()) cout << "ÕÂÚ ‡ÍÚË‚Ì˚ı ‚˚‰‡˜.\n";
-		for (auto l : active) printLoan(*l);
-	}
-	else if (c == 4) {
-		auto over = library.overdueLoans(currentDate);
-		if (over.empty()) cout << "œÓÒÓ˜ÂÌÌ˚ı ÌÂÚ.\n";
-		for (auto l : over) {
-			printLoan(*l);
-			cout << "    ÔÓÒÓ˜ÂÌÓ ‰ÌÂÈ: " << l->overdueDays(currentDate) << "\n";
-		}
-	}
+    cout << "\n-- –í—ã–¥–∞—á–∏ --\n"
+        << "1. –í—ã–¥–∞—Ç—å\n2. –ü—Ä–∏–Ω—è—Ç—å –≤–æ–∑–≤—Ä–∞—Ç\n"
+        << "3. –ê–∫—Ç–∏–≤–Ω—ã–µ\n4. –ü—Ä–æ—Å—Ä–æ—á–µ–Ω–Ω—ã–µ\n0. –ù–∞–∑–∞–¥\n";
+    int c = readInt("–í—ã–±–æ—Ä: ");
+    if (c == 1) {
+        int id = readPositiveInt("id –∏–∑–¥–∞–Ω–∏—è: ");
+        string tk = readNonEmpty("–ë–∏–ª–µ—Ç —á–∏—Ç–∞—Ç–µ–ª—è: ");
+        int loanId = library.issueLoan(id, tk, currentDate);
+        cout << "–í—ã–¥–∞—á–∞ –æ—Ñ–æ—Ä–º–ª–µ–Ω–∞. –ù–æ–º–µ—Ä –∑–∞–ø–∏—Å–∏: " << loanId << "\n";
+    }
+    else if (c == 2) {
+        int id = readPositiveInt("id –∑–∞–ø–∏—Å–∏ –æ –≤—ã–¥–∞—á–µ: ");
+        if (library.returnLoan(id, currentDate)) cout << "–í–æ–∑–≤—Ä–∞—Ç –ø—Ä–∏–Ω—è—Ç.\n";
+        else                                     cout << "–ó–∞–ø–∏—Å—å –Ω–µ –Ω–∞–π–¥–µ–Ω–∞ –∏–ª–∏ —É–∂–µ –∑–∞–∫—Ä—ã—Ç–∞.\n";
+    }
+    else if (c == 3) {
+        auto active = library.activeLoans();
+        if (active.empty()) cout << "–ù–µ—Ç –∞–∫—Ç–∏–≤–Ω—ã—Ö –≤—ã–¥–∞—á.\n";
+        for (auto l : active) printLoan(*l);
+    }
+    else if (c == 4) {
+        auto over = library.overdueLoans(currentDate);
+        if (over.empty()) cout << "–ü—Ä–æ—Å—Ä–æ—á–µ–Ω–Ω—ã—Ö –Ω–µ—Ç.\n";
+        for (auto l : over) {
+            printLoan(*l);
+            cout << "    –ø—Ä–æ—Å—Ä–æ—á–µ–Ω–æ –¥–Ω–µ–π: " << l->overdueDays(currentDate) << "\n";
+        }
+    }
 }
 void LibraryApp::menuSearch() {
-	cout << "\n-- œÓËÒÍ --\n"
-		<< "1. œÓ Ì‡Á‚‡ÌË˛ (ÔÓ‰ÒÚÓÍ‡)\n2. œÓ ‡‚ÚÓÛ (ÔÓ‰ÒÚÓÍ‡)\n3. œÓ „Ó‰Û\n0. Õ‡Á‡‰\n";
-	int c = readInt("¬˚·Ó: ");
-	if (c == 1) {
-		string q = readNonEmpty("«‡ÔÓÒ: ");
-		auto found = library.searchByTitle(q);
-		if (found.empty()) cout << "ÕË˜Â„Ó ÌÂ Ì‡È‰ÂÌÓ.\n";
-		for (auto p : found) p->display();
-	}
-	else if (c == 2) {
-		string q = readNonEmpty("¿‚ÚÓ: ");
-		auto found = library.searchByAuthor(q);
-		if (found.empty()) cout << "ÕË˜Â„Ó ÌÂ Ì‡È‰ÂÌÓ.\n";
-		for (auto b : found) b->display();
-	}
-	else if (c == 3) {
-		int y = readInt("√Ó‰: ");
-		auto found = library.searchByYear(y);
-		if (found.empty()) cout << "ÕË˜Â„Ó ÌÂ Ì‡È‰ÂÌÓ.\n";
-		for (auto p : found) p->display();
-	}
+    cout << "\n-- –ü–æ–∏—Å–∫ --\n"
+        << "1. –ü–æ –Ω–∞–∑–≤–∞–Ω–∏—é (–ø–æ–¥—Å—Ç—Ä–æ–∫–∞)\n2. –ü–æ –∞–≤—Ç–æ—Ä—É (–ø–æ–¥—Å—Ç—Ä–æ–∫–∞)\n3. –ü–æ –≥–æ–¥—É\n0. –ù–∞–∑–∞–¥\n";
+    int c = readInt("–í—ã–±–æ—Ä: ");
+    if (c == 1) {
+        string q = readNonEmpty("–ó–∞–ø—Ä–æ—Å: ");
+        auto found = library.searchByTitle(q);
+        if (found.empty()) cout << "–ù–∏—á–µ–≥–æ –Ω–µ –Ω–∞–π–¥–µ–Ω–æ.\n";
+        for (auto p : found) p->display();
+    }
+    else if (c == 2) {
+        string q = readNonEmpty("–ê–≤—Ç–æ—Ä: ");
+        auto found = library.searchByAuthor(q);
+        if (found.empty()) cout << "–ù–∏—á–µ–≥–æ –Ω–µ –Ω–∞–π–¥–µ–Ω–æ.\n";
+        for (auto b : found) b->display();
+    }
+    else if (c == 3) {
+        int y = readInt("–ì–æ–¥: ");
+        auto found = library.searchByYear(y);
+        if (found.empty()) cout << "–ù–∏—á–µ–≥–æ –Ω–µ –Ω–∞–π–¥–µ–Ω–æ.\n";
+        for (auto p : found) p->display();
+    }
 }
 void LibraryApp::menuReports() {
-	int booksCount = 0, journalsCount = 0;
-	for (auto p : library.getItems()) {
-		if (dynamic_cast<const Book*>(p))    ++booksCount;
-		if (dynamic_cast<const Journal*>(p)) ++journalsCount;
-	}
-	cout << "\n¬ÒÂ„Ó ÍÌË„: " << booksCount
-		<< "\n¬ÒÂ„Ó ÊÛÌ‡ÎÓ‚: " << journalsCount
-		<< "\n¬ÒÂ„Ó ˜ËÚ‡ÚÂÎÂÈ: " << library.getReaders().size()
-		<< "\n¬ÒÂ„Ó ‚˚‰‡˜: " << library.getLoans().size()
-		<< "\n¿ÍÚË‚Ì˚ı ‚˚‰‡˜: " << library.activeLoans().size()
-		<< "\nœÓÒÓ˜ÂÌÌ˚ı: " << library.overdueLoans(currentDate).size()
-		<< "\n";
+    int booksCount = 0, journalsCount = 0;
+    for (auto p : library.getItems()) {
+        if (dynamic_cast<const Book*>(p))    ++booksCount;
+        if (dynamic_cast<const Journal*>(p)) ++journalsCount;
+    }
+    cout << "\n–í—Å–µ–≥–æ –∫–Ω–∏–≥: " << booksCount
+        << "\n–í—Å–µ–≥–æ –∂—É—Ä–Ω–∞–ª–æ–≤: " << journalsCount
+        << "\n–í—Å–µ–≥–æ —á–∏—Ç–∞—Ç–µ–ª–µ–π: " << library.getReaders().size()
+        << "\n–í—Å–µ–≥–æ –≤—ã–¥–∞—á: " << library.getLoans().size()
+        << "\n–ê–∫—Ç–∏–≤–Ω—ã—Ö –≤—ã–¥–∞—á: " << library.activeLoans().size()
+        << "\n–ü—Ä–æ—Å—Ä–æ—á–µ–Ω–Ω—ã—Ö: " << library.overdueLoans(currentDate).size()
+        << "\n";
 }
 void LibraryApp::doSave() {
-	library.saveAll();
-	cout << "ƒ‡ÌÌ˚Â ÒÓı‡ÌÂÌ˚.\n";
+    library.saveAll();
+    cout << "–î–∞–Ω–Ω—ã–µ —Å–æ—Ö—Ä–∞–Ω–µ–Ω—ã.\n";
 }
 void LibraryApp::doExit() {
-	string ans = readLine("—Óı‡ÌËÚ¸ ÔÂÂ‰ ‚˚ıÓ‰ÓÏ? (y/n): ");
-	if (ans == "y" || ans == "Y") library.saveAll();
-	running = false;
+    string ans = readLine("–°–æ—Ö—Ä–∞–Ω–∏—Ç—å –ø–µ—Ä–µ–¥ –≤—ã—Ö–æ–¥–æ–º? (y/n): ");
+    if (ans == "y" || ans == "Y") library.saveAll();
+    running = false;
 }

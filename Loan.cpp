@@ -2,20 +2,20 @@
 #include "Loan.h"
 using namespace std;
 Loan::Loan()
-	: id(0), itemId(0), readerId(0),
-	issueDate(), dueDate(), returnDate(), status(LoanStatus::Active) {
+    : id(0), itemId(0), readerId(0),
+    issueDate(), dueDate(), returnDate(), status(LoanStatus::Active) {
 }
 Loan::Loan(int id, int itemId, int readerId, const Date& issueDate, const Date& dueDate)
-	: id(id), itemId(itemId), readerId(readerId),
-	issueDate(issueDate), dueDate(dueDate), returnDate(),
-	status(LoanStatus::Active) {
+    : id(id), itemId(itemId), readerId(readerId),
+    issueDate(issueDate), dueDate(dueDate), returnDate(),
+    status(LoanStatus::Active) {
 }
 void Loan::close(const Date& today) {
-	if (status == LoanStatus::Returned) {
-		throw LibraryException("Запись о выдаче уже закрыта");
-	}
-	returnDate = today;
-	status = LoanStatus::Returned;
+    if (status == LoanStatus::Returned) {
+        throw LibraryException("Р—Р°РїРёСЃСЊ Рѕ РІС‹РґР°С‡Рµ СѓР¶Рµ Р·Р°РєСЂС‹С‚Р°");
+    }
+    returnDate = today;
+    status = LoanStatus::Returned;
 }
 bool Loan::isOverdue(const Date& today) const {
 	if (status == LoanStatus::Returned) return false;

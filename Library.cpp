@@ -5,115 +5,115 @@ using namespace std;
 Library::Library() : nextItemId(1), nextReaderId(1), nextLoanId(1) {}
 
 Library::~Library() {
-	clearItems();
+    clearItems();
 }
 void Library::clearItems() {
-	for (auto p : items) delete p;
-	items.clear();
+    for (auto p : items) delete p;
+    items.clear();
 }
 
 void Library::addBook(const string& title, const string& author, int year, int copies) {
-	Book* b = new Book(nextItemId, title, author, year, copies);
-	items.push_back(b);
-	++nextItemId;
+    Book* b = new Book(nextItemId, title, author, year, copies);
+    items.push_back(b);
+    ++nextItemId;
 }
 void Library::addJournal(const string& title, int year, int copies,
-	int issue, const string& periodicity) {
-	Journal* j = new Journal(nextItemId, title, year, copies, issue, periodicity);
-	items.push_back(j);
-	++nextItemId;
+    int issue, const string& periodicity) {
+    Journal* j = new Journal(nextItemId, title, year, copies, issue, periodicity);
+    items.push_back(j);
+    ++nextItemId;
 }
 bool Library::removeItem(int id) {
-	for (auto it = items.begin(); it != items.end(); ++it) {
-		if ((*it)->getId() == id) {
-			if ((*it)->getAvailableCopies() < (*it)->getTotalCopies()) {
-				throw LibraryException("Íåëüçÿ óäàëèòü: åñòü íåâîçâðàù¸ííûå ýêçåìïëÿðû");
-			}
-			delete* it;
-			items.erase(it);
-			return true;
-		}
-	}
-	return false;
+    for (auto it = items.begin(); it != items.end(); ++it) {
+        if ((*it)->getId() == id) {
+            if ((*it)->getAvailableCopies() < (*it)->getTotalCopies()) {
+                throw LibraryException("ÐÐµÐ»ÑŒÐ·Ñ ÑƒÐ´Ð°Ð»Ð¸Ñ‚ÑŒ: ÐµÑÑ‚ÑŒ Ð½ÐµÐ²Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ñ‘Ð½Ð½Ñ‹Ðµ ÑÐºÐ·ÐµÐ¼Ð¿Ð»ÑÑ€Ñ‹");
+            }
+            delete* it;
+            items.erase(it);
+            return true;
+        }
+    }
+    return false;
 }
 LibraryItem* Library::findItem(int id) {
-	for (auto p : items) if (p->getId() == id) return p;
-	return nullptr;
+    for (auto p : items) if (p->getId() == id) return p;
+    return nullptr;
 }
 const LibraryItem* Library::findItem(int id) const {
-	for (auto p : items) if (p->getId() == id) return p;
-	return nullptr;
+    for (auto p : items) if (p->getId() == id) return p;
+    return nullptr;
 }
 
 void Library::registerReader(const string& ln, const string& fn,
-	const string& mn, const string& ticket) {
-	for (const auto& r : readers) {
-		if (r.getTicketNumber() == ticket) {
-			throw LibraryException("×èòàòåëü ñ òàêèì áèëåòîì óæå ñóùåñòâóåò");
-		}
-	}
-	Reader r(nextReaderId, ln, fn, mn, ticket, Date::today());
-	readers.push_back(r);
-	++nextReaderId;
+    const string& mn, const string& ticket) {
+    for (const auto& r : readers) {
+        if (r.getTicketNumber() == ticket) {
+            throw LibraryException("Ð§Ð¸Ñ‚Ð°Ñ‚ÐµÐ»ÑŒ Ñ Ñ‚Ð°ÐºÐ¸Ð¼ Ð±Ð¸Ð»ÐµÑ‚Ð¾Ð¼ ÑƒÐ¶Ðµ ÑÑƒÑ‰ÐµÑÑ‚Ð²ÑƒÐµÑ‚");
+        }
+    }
+    Reader r(nextReaderId, ln, fn, mn, ticket, Date::today());
+    readers.push_back(r);
+    ++nextReaderId;
 }
 bool Library::removeReader(int id) {
-	for (auto it = readers.begin(); it != readers.end(); ++it) {
-		if (it->getId() == id) {
-			if (it->getActiveLoansCount() > 0) {
-				throw LibraryException("Íåëüçÿ óäàëèòü ÷èòàòåëÿ ñ àêòèâíûìè âûäà÷àìè");
-			}
-			readers.erase(it);
-			return true;
-		}
-	}
-	return false;
+    for (auto it = readers.begin(); it != readers.end(); ++it) {
+        if (it->getId() == id) {
+            if (it->getActiveLoansCount() > 0) {
+                throw LibraryException("ÐÐµÐ»ÑŒÐ·Ñ ÑƒÐ´Ð°Ð»Ð¸Ñ‚ÑŒ Ñ‡Ð¸Ñ‚Ð°Ñ‚ÐµÐ»Ñ Ñ Ð°ÐºÑ‚Ð¸Ð²Ð½Ñ‹Ð¼Ð¸ Ð²Ñ‹Ð´Ð°Ñ‡Ð°Ð¼Ð¸");
+            }
+            readers.erase(it);
+            return true;
+        }
+    }
+    return false;
 }
 Reader* Library::findReader(int id) {
-	for (auto& r : readers) if (r.getId() == id) return &r;
-	return nullptr;
+    for (auto& r : readers) if (r.getId() == id) return &r;
+    return nullptr;
 }
 const Reader* Library::findReader(int id) const {
-	for (const auto& r : readers) if (r.getId() == id) return &r;
-	return nullptr;
+    for (const auto& r : readers) if (r.getId() == id) return &r;
+    return nullptr;
 }
 Reader* Library::findReaderByTicket(const string& ticket) {
-	for (auto& r : readers) if (r.getTicketNumber() == ticket) return &r;
-	return nullptr;
+    for (auto& r : readers) if (r.getTicketNumber() == ticket) return &r;
+    return nullptr;
 }
 
 int Library::issueLoan(int itemId, const string& ticket, const Date& today) {
-	LibraryItem* item = findItem(itemId);
-	Reader* r = findReaderByTicket(ticket);
-	if (item == nullptr) throw LibraryException("Èçäàíèå ñ óêàçàííûì id íå íàéäåíî");
-	if (r == nullptr) throw LibraryException("×èòàòåëü ñ óêàçàííûì áèëåòîì íå íàéäåí");
-	item->issueOne();
-	try {
-		r->incrementLoans();
-	}
-	catch (const LibraryException&) {
-		item->returnOne();
-		throw;
-	}
-	Date due = today.addDays(Loan::LOAN_PERIOD_DAYS);
-	Loan loan(nextLoanId, itemId, r->getId(), today, due);
-	loans.push_back(loan);
-	int newId = nextLoanId;
-	++nextLoanId;
-	return newId;
+    LibraryItem* item = findItem(itemId);
+    Reader* r = findReaderByTicket(ticket);
+    if (item == nullptr) throw LibraryException("Ð˜Ð·Ð´Ð°Ð½Ð¸Ðµ Ñ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ñ‹Ð¼ id Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½Ð¾");
+    if (r == nullptr) throw LibraryException("Ð§Ð¸Ñ‚Ð°Ñ‚ÐµÐ»ÑŒ Ñ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ñ‹Ð¼ Ð±Ð¸Ð»ÐµÑ‚Ð¾Ð¼ Ð½Ðµ Ð½Ð°Ð¹Ð´ÐµÐ½");
+    item->issueOne();
+    try {
+        r->incrementLoans();
+    }
+    catch (const LibraryException&) {
+        item->returnOne();
+        throw;
+    }
+    Date due = today.addDays(Loan::LOAN_PERIOD_DAYS);
+    Loan loan(nextLoanId, itemId, r->getId(), today, due);
+    loans.push_back(loan);
+    int newId = nextLoanId;
+    ++nextLoanId;
+    return newId;
 }
 bool Library::returnLoan(int loanId, const Date& today) {
-	for (auto& loan : loans) {
-		if (loan.getId() == loanId) {
-			if (loan.getStatus() == LoanStatus::Returned) return false;
-			LibraryItem* item = findItem(loan.getItemId());
-			Reader* r = findReader(loan.getReaderId());
-			if (item != nullptr) item->returnOne();
-			if (r != nullptr) r->decrementLoans();
-			loan.close(today);
-			return true;
-		}
-	}
-	return false;
+    for (auto& loan : loans) {
+        if (loan.getId() == loanId) {
+            if (loan.getStatus() == LoanStatus::Returned) return false;
+            LibraryItem* item = findItem(loan.getItemId());
+            Reader* r = findReader(loan.getReaderId());
+            if (item != nullptr) item->returnOne();
+            if (r != nullptr) r->decrementLoans();
+            loan.close(today);
+            return true;
+        }
+    }
+    return false;
 }
 
 vector<const LibraryItem*> Library::searchByTitle(const string& q) const {
