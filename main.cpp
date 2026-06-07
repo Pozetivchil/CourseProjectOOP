@@ -5,7 +5,8 @@
 using namespace std;
 
 int main() {
-	//system("chcp 1251");
+	unsigned int a = 2;
+	cout << a;
 
 	cout << "Информационная система библиотеки\n"
 		<< "Курсовой проект по дисциплине ООП\n"
